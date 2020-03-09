@@ -13,6 +13,3 @@ def square(x):
     
     y = x**2
     return y
-end
-
-print(square(2))
