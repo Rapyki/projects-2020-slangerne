@@ -1,27 +1,32 @@
-def square(x):
-    """ square numpy array
-    
-    Args:
-    
-        x (ndarray): input array
-        
-    Returns:
-    
-        y (ndarray): output array
-    
-    """
-    
-    y = x**2
-    return y
+import numpy as np
+import scipy.optimize as opt
 
 
-def f(c,l,v=10, epsilon=0.3):
-    #Function is given as: 
-    import numpy as np
-    return  np.log(c)-v*(l**(1+1/epsilon))/(1+1/epsilon)
+# Defining utility
+
+def utility(c,v,l,eps):
+    u = np.log(c) - v*(l**(1+1/eps)/(1+1/eps))
+    return u
+
+# Defining constraint
+
+def eq(m,w,l,tau_0,tau_1,kappa):
+    x = m + w*l - (tau_0*w*l + tau_1*np.max(w*l-kappa,0))
+    return x
 
 
-def c(l,w , m=1, tau0=0.4, tau1=0.1,kappa=0.4):
-    #x = m + w*l - (tau0*w*l+tau1*(w*l-kappa))
+def choice(l,w,eps,v,tau_0,tau_1,kappa):
+    c = eq(m,w,l,tau_0,tau_1,kappa)
+    return -utility(c,v,l,eps)
 
-    return m + w*l - (tau0*w*l+tau1*(w*l-kappa))
+
+def optimizer(w,eps,v,tau_0,tau_1,kappa,m):
+    res = opt.minimize_scalar(
+    choice, method='bounded',
+    bounds=(0,1), args=(w,eps,v,tau_0,tau_1,kappa))
+    
+    l_star = res.x
+    c_star = eq(m,w,l_star,tau_0,tau_1,kappa)
+    utility_star = (c_star,l_star,v,eps)
+    
+    return l_star,c_star,utility_star
