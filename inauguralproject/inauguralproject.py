@@ -12,8 +12,4 @@ def square(x):
     """
     
     y = x**2
-<<<<<<< HEAD
     return y
-=======
-    return y
->>>>>>> ebf19ddac342874e2affe0236d4269fbb572d9f4
