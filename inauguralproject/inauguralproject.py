@@ -29,6 +29,6 @@ def optimizer(w,eps,v,tau_0,tau_1,kappa,m):
     
     l_star = res.x
     c_star = eq(m,w,l_star,tau_0,tau_1,kappa)
-    utility_star = (c_star,l_star,v,eps)
+    utility_star = -utility(c_star,l_star,v,eps)
     
     return l_star,c_star,utility_star
