@@ -15,7 +15,7 @@ def eq(m,w,l,tau_0,tau_1,kappa):
     return x
 
 
-def choice(l,w,eps,v,tau_0,tau_1,kappa):
+def choice(l,w,eps,v,tau_0,tau_1,kappa,m):
     c = eq(m,w,l,tau_0,tau_1,kappa)
     return -utility(c,v,l,eps)
 
@@ -23,7 +23,7 @@ def choice(l,w,eps,v,tau_0,tau_1,kappa):
 def optimizer(w,eps,v,tau_0,tau_1,kappa,m):
     res = opt.minimize_scalar(
     choice, method='bounded',
-    bounds=(0,1), args=(w,eps,v,tau_0,tau_1,kappa))
+    bounds=(0,1), args=(w,eps,v,tau_0,tau_1,kappa,m))
     
     l_star = res.x
     c_star = eq(m,w,l_star,tau_0,tau_1,kappa)
