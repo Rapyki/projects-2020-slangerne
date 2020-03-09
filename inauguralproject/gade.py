@@ -22,5 +22,6 @@ def f(c,l,v=10, epsilon=0.3):
 
 
 def c(l,w , m=1, tau0=0.4, tau1=0.1,kappa=0.4):
-    #x = m + w*l - (tau0*w*l+tau1*(w*l-kappa)
-    return m + w*l - (tau0*w*l+tau1*(w*l-kappa)
+    #x = m + w*l - (tau0*w*l+tau1*(w*l-kappa))
+
+    return m + w*l - (tau0*w*l+tau1*(w*l-kappa))
