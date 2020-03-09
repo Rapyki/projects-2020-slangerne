@@ -4,7 +4,7 @@ import scipy.optimize as opt
 
 # Defining utility
 
-def utility(c,v,l,eps):
+def utility(c,l,v,eps):
     u = np.log(c) - v*(l**(1+1/eps)/(1+1/eps))
     return u
 
@@ -18,7 +18,7 @@ def eq(m,w,l,tau_0,tau_1,kappa):
 
 def choice(l,w,eps,v,tau_0,tau_1,kappa,m):
     c = eq(m,w,l,tau_0,tau_1,kappa)
-    return -utility(c,v,l,eps)
+    return -utility(c,l,v,eps)
 
 # Defining function to optimize labour supply
 
@@ -29,6 +29,6 @@ def optimizer(w,eps,v,tau_0,tau_1,kappa,m):
     
     l_star = res.x
     c_star = eq(m,w,l_star,tau_0,tau_1,kappa)
-    utility_star = (c_star,l_star,v,eps)
+    utility_star = -utility(c_star,l_star,v,eps)
     
     return l_star,c_star,utility_star
