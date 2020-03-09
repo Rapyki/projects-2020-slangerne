@@ -17,6 +17,7 @@ def square(x):
 
 def f(c,l,v=10, epsilon=0.3):
     #Function is given as: 
+    #import numpy as np
     return  np.log(c)-v*(l**(1+1/epsilon))/(1+1/epsilon)
-
+    
     
