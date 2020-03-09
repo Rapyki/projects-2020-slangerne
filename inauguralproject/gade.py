@@ -15,8 +15,8 @@ def square(x):
     return y
 
 
-def max(m=1):
-    #this is a test
-    x = m**4 
+def f(c,l,v=10, epsilon=0.3):
+    #Function is given as: 
+    return  np.log(c)-v*(l**(1+1/epsilon))/(1+1/epsilon)
 
-    return x
+    
