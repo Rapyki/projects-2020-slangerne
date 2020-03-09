@@ -15,9 +15,4 @@ def square(x):
     return y
 end
 
-
-    def max(m=1, v=10):
-
-    x = m+v 
-
-    return x
+print(square(2))
