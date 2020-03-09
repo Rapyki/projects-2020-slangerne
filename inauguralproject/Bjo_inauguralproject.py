@@ -16,8 +16,8 @@ def square(x):
 end
 
 
-    def max(m=1, v=10):
-
+def max(m=1, v=10):
+    """ Funktion der returnerer summen af to parametre """
     x = m+v 
 
     return x
