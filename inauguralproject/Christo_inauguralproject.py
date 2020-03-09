@@ -17,6 +17,6 @@ def square(x):
 
 def max(m=1):
     #this is a test
-    x = m**v 
+    x = m**4 
 
     return x
