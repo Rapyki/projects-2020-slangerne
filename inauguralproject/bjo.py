@@ -25,15 +25,12 @@ def max(m=1, v=10):
 
     return x
 
-"""
+
 def maxproblem(l, v=10, eps=0.3, w = 1.5, kappa = 0.4, tauzero = 0.4, tauone = 0.1, m= 1):
     # ensure you understand what this function is doing
     x = m + w*l - tauzero*w*l + tauone * np.max(w*l-kappa,0)
-    
-    for svar_nu in l : 
-        svar = np.max(np.log(x) - v * (l**(1+(1/eps))/(1+(1/eps))))
-    return svar
-    """
+    return np.max(np.log(x) - v * (l**(1+(1/eps))/(1+(1/eps))))
+
 
 m = 1 #cash-on-hand
 v = 10 #disutility of labor
@@ -71,4 +68,6 @@ def optimizer(w,eps,v,tau_0,tau_1,kappa,m):
     utility_star = (c_star,l_star,v,eps)
     
     return l_star,c_star,utility_star
+
+
 
