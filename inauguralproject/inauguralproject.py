@@ -13,3 +13,11 @@ def square(x):
     
     y = x**2
     return y
+end
+
+
+    def max(m=1, v=10):
+
+    x = m+v 
+
+    return x
