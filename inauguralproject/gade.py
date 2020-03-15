@@ -29,21 +29,19 @@ class ConsumerClass:
 
 
     def choice(self,l):
-        c = eq(self,l)
-        return -utility(self,c,l)
+        c = self.eq(l)
+        return -self.utility(c,l)
 
 
-    def optimizer(w,eps,v,tau_0,tau_1,kappa,m):
+    def optimizer(self):
         res = opt.minimize_scalar(
-        choice, method='bounded',
-        bounds=(0,1), args=(w,eps,v,tau_0,tau_1,kappa,m))
+        self.choice, method='bounded',
+        bounds=(0,1), args=(self))
     
         l_star = res.x
-        c_star = eq(m,w,l_star,tau_0,tau_1,kappa)
-        utility_star = (c_star,l_star,v,eps)
+        c_star = self.eq(l_star)
+        u_star = self.utility(c_star,l_star)
     
-        return l_star,c_star,utility_star
+        return l_star, c_star, u_star
+        
 
-    l_star = inauguralproject.optimizer(w,eps,v,tau_0,tau_1,kappa,m)[0]
-    c_star = inauguralproject.optimizer(w,eps,v,tau_0,tau_1,kappa,m)[1]
-    u_star = inauguralproject.optimizer(w,eps,v,tau_0,tau_1,kappa,m)[2]
