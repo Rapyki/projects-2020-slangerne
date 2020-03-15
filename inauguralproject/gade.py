@@ -6,7 +6,7 @@ import scipy.optimize as opt
 
 
 
-class ConsumerClass:
+class Con:
 
     def __init__(self):
         self.m = 1 #cash-on-hand
