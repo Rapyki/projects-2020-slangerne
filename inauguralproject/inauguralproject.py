@@ -32,3 +32,5 @@ def optimizer(w,eps,v,tau_0,tau_1,kappa,m):
     utility_star = utility(c_star,l_star,v,eps)
     
     return l_star,c_star,utility_star
+
+
