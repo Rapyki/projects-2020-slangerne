@@ -5,7 +5,7 @@ As can be seen in the  [inauguralproject.ipynb](inauguralproject.ipynb) together
 
 The **results** of the project can be seen from running [inauguralproject.ipynb](inauguralproject.ipynb).
 
-The functions generating the **results** can be seen in the [inauguralproject.py](inauguralproject.py)
+The functions generating the **results** in question 1 can be seen in the [inauguralproject.py](inauguralproject.py)
 
 **Dependencies:** Apart from a standard Anaconda Python 3 installation, the project requires no further packages.
 
