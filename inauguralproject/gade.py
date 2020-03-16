@@ -60,3 +60,7 @@ class ConsumerProblem:
         tax = lambda l_opt, w_vec: self.tau_0*w_vec*l_opt + self.tau_1*np.max(w_vec*l_opt-self.kappa,0)
         tax_rev=np.sum(tax(l_opt,w_vec))
         return tax_rev
+
+    def para(self): # To print the parameters
+        para =  f'm: {self.m}, v: {self.v}, eps: {self.eps}, tau0: {self.tau_0}, tau1: {self.tau_1}, kappa: {self.kappa} and w: {self.w}'
+        return para
