@@ -28,7 +28,7 @@ class ConsumerProblem:
     # Defining constraint
 
     def eq(self,l):
-        x = self.m + self.w*l - (self.tau_0*self.w*l + self.tau_1*np.max(self.w*l-self.kappa,0))
+        x = self.m + self.w*l - (self.tau_0*self.w*l + self.tau_1*np.fmax(self.w*l-self.kappa,0))
         return x
 
 
@@ -57,7 +57,7 @@ class ConsumerProblem:
         for i in range(0,N):
             l_opt[i]=self.optimizer()[0]
 
-        tax = lambda l_opt, w_vec: self.tau_0*w_vec*l_opt + self.tau_1*np.max(w_vec*l_opt-self.kappa,0)
+        tax = lambda l_opt, w_vec: self.tau_0*w_vec*l_opt + self.tau_1*np.fmax(w_vec*l_opt-self.kappa,0)
         tax_rev=np.sum(tax(l_opt,w_vec))
         return tax_rev
 
