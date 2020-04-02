@@ -35,7 +35,7 @@ def quarter_to_year(df):
     
     return df
 
-def initial_rename_sort(df):
+def initial_rename(df):
     """ renames 'Område' to 'municipality' and 'tid' to 'year'. Afterwords it sorts after first municipality and then year
 
     Args:
@@ -46,9 +46,25 @@ def initial_rename_sort(df):
 
     """ 
     
+    
     df.rename(columns = {'OMRÅDE':'municipality'}, inplace=True)
     df.rename(columns = {'TID':'year'}, inplace=True)
-    df = df.sort_values(['municipality','year'])
+    
+
+    return df
+
+def sort_reset(df):
+    """ sorts after first municipality and then year. Also resets index
+
+    Args:
+        df (pd.DataFrame): pandas dataframe with the columns "year" and "municipality" as strings
+
+    Returns:
+        df (pd.DataFrame): pandas dataframe
+
+    """
+    df = df.sort_values(['OMRÅDE','TID'])
+    df.reset_index(drop=True, inplace=True)
 
     return df
 
