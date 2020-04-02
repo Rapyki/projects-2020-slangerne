@@ -1,8 +1,9 @@
-def only_keep_municipalities(df):
+def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
     """ delete all non-municipalities
 
     Args:
-        df (pd.DataFrame): pandas dataframe with the column "municipality" as a string
+        df (pd.DataFrame): pandas dataframe with the column "municipality" as a string, forskel (int) as year of datarep
+        startaar as int and slutaar as int
 
     Returns:
         df (pd.DataFrame): pandas dataframe
@@ -13,6 +14,15 @@ def only_keep_municipalities(df):
         
         I = df.municipality.str.contains(val)
         df = df.loc[I == False] # keep everything else
+
+    
+    df['year'] = df['year'].astype(int)
+    df['year'] = df['year'] + forskel
+    df = df.loc[df['year'] <= slutaar ]
+    df = df.loc[df['year'] >= startaar ]
+    df['year'] = df['year'].astype(str)
+    
+
     
     return df
 
