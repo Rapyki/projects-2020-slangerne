@@ -2,8 +2,10 @@ def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
     """ delete all non-municipalities
 
     Args:
-        df (pd.DataFrame): pandas dataframe with the column "municipality" as a string, forskel (int) as year of datarep
-        startaar as int and slutaar as int
+        df (pd.DataFrame): pandas dataframe with the column "municipality" as a string, 
+        forskel (int) as year variable input (Ras is measured in November while fx. population i january)
+        startaar (int) as the wanted starting year of the dataset
+        slutaar (int) as the wanted end year of the dataset
 
     Returns:
         df (pd.DataFrame): pandas dataframe
@@ -11,7 +13,7 @@ def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
     """ 
     
     for val in ['Region', 'Province', 'All Denmark']:
-        
+
         I = df.municipality.str.contains(val)
         df = df.loc[I == False] # keep everything else
 
@@ -21,13 +23,14 @@ def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
     df = df.loc[df['year'] <= slutaar ]
     df = df.loc[df['year'] >= startaar ]
     df['year'] = df['year'].astype(str)
-    
+
 
     
     return df
 
 def quarter_to_year(df):
-    """ keeps only the first quarter observation  
+    """ keeps only the first quarter observation if the dataset is quarterly, also removes the Q notation
+    
 
     Args:
         df (pd.DataFrame): pandas dataframe with the column "year" as a string
