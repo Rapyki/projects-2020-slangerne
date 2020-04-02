@@ -63,7 +63,7 @@ def sort_reset(df):
         df (pd.DataFrame): pandas dataframe
 
     """
-    df = df.sort_values(['OMRÅDE','TID'])
+    df = df.sort_values(['municipality','year'])
     df.reset_index(drop=True, inplace=True)
 
     return df
