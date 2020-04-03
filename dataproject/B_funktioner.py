@@ -10,6 +10,7 @@ def quarter_to_year(df):
         df (pd.DataFrame): pandas dataframe
 
     """ 
+    df['year'] = df['year'].astype(str)
     
     for year in df.year.str.contains('Q'):
         if year == True:
