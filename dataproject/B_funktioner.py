@@ -1,32 +1,3 @@
-def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
-    """ delete all non-municipalities
-
-    Args:
-        df (pd.DataFrame): pandas dataframe with the column "municipality" as a string, 
-        forskel (int) as year variable input (Ras is measured in November while fx. population i january)
-        startaar (int) as the wanted starting year of the dataset
-        slutaar (int) as the wanted end year of the dataset
-
-    Returns:
-        df (pd.DataFrame): pandas dataframe
-
-    """ 
-    
-    for val in ['Region', 'Province', 'All Denmark']:
-
-        I = df.municipality.str.contains(val)
-        df = df.loc[I == False] # keep everything else
-
-    
-    df['year'] = df['year'].astype(int)
-    df['year'] = df['year'] + forskel
-    df = df.loc[df['year'] <= slutaar ]
-    df = df.loc[df['year'] >= startaar ]
-    df['year'] = df['year'].astype(str)
-
-
-    
-    return df
 
 def quarter_to_year(df):
     """ keeps only the first quarter observation if the dataset is quarterly, also removes the Q notation
@@ -40,12 +11,15 @@ def quarter_to_year(df):
 
     """ 
     
-    for val in ['Q1']: 
+    for year in df.year.str.contains('Q'):
+        if year == True:
+            U = df.year.str.contains('Q1')
+            df = df.loc[U == True] # keep only that one
+            df.year = df.year.str[0:4]
+            break
+        else:
+            continue
         
-        I = df.year.str.contains(val)
-        df = df.loc[I == True] # keep only that one
-        df.year = df.year.str[0:4]
-    
     return df
 
 def initial_rename(df):
@@ -66,6 +40,7 @@ def initial_rename(df):
 
     return df
 
+
 def sort_reset(df):
     """ sorts after first municipality and then year. Also resets index
 
@@ -80,6 +55,44 @@ def sort_reset(df):
     df.reset_index(drop=True, inplace=True)
 
     return df
+
+
+
+def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
+    """ delete all non-municipalities
+
+    Args:
+        df (pd.DataFrame): pandas dataframe with the column "municipality" as a string, 
+        forskel (int) as year variable input (Ras is measured in November while fx. population i january)
+        startaar (int) as the wanted starting year of the dataset
+        slutaar (int) as the wanted end year of the dataset
+
+    Returns:
+        df (pd.DataFrame): pandas dataframe
+
+    """
+
+    # Delition list
+    val_list = ['Region', 'Province', 'All Denmark']
+    
+    # 
+    for val in val_list:
+        I = df.municipality.str.contains(val)
+        df = df.loc[I == False] # keep everything else
+
+
+    
+    df['year'] = df['year'].astype(int)
+    df['year'] = df['year'] + forskel
+    df = df.loc[df['year'] <= slutaar ]
+    df = df.loc[df['year'] >= startaar ]
+    df['year'] = df['year'].astype(str)
+
+
+    return df
+
+
+
 
 
 
