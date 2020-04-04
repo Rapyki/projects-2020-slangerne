@@ -67,12 +67,13 @@ def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
         forskel (int) as year variable input (Ras is measured in November while fx. population i january)
         startaar (int) as the wanted starting year of the dataset
         slutaar (int) as the wanted end year of the dataset
+        keeps only the first quarter observation if the dataset is quarterly, also removes the Q notation
 
     Returns:
         df (pd.DataFrame): pandas dataframe
 
     """
-
+    df = quarter_to_year(df)
     # Delition list
     val_list = ['Region', 'Province', 'All Denmark']
     
