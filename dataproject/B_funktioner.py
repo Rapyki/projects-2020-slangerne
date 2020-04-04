@@ -97,7 +97,7 @@ def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
     return df
 
 
-def row_chooser(df, varname, rownames, keep=True):
+def row_chooser(df,varname,rownames, keep=True):
     """ chooses which rows to keep from af given variable
 
     Args:
