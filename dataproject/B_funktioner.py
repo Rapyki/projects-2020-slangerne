@@ -23,11 +23,12 @@ def quarter_to_year(df):
         
     return df
 
-def initial_rename(df):
-    """ renames 'Område' to 'municipality' and 'tid' to 'year'. Afterwords it sorts after first municipality and then year
+def initial_rename(df,varname):
+    """ renames 'Område' to 'municipality' and 'tid' to 'year'. Also renames the data variable
 
     Args:
         df (pd.DataFrame): pandas dataframe with the columns "year" and "municipality" as strings
+        varname: the wanted name for the given variable
 
     Returns:
         df (pd.DataFrame): pandas dataframe
@@ -37,6 +38,8 @@ def initial_rename(df):
     
     df.rename(columns = {'OMRÅDE':'municipality'}, inplace=True)
     df.rename(columns = {'TID':'year'}, inplace=True)
+
+    df.rename(columns = {'INDHOLD':varname}, inplace=True)
     
 
     return df
@@ -93,6 +96,26 @@ def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
 
     return df
 
+
+def row_chooser(df, varname, rownames, keep=True):
+    """ chooses which rows to keep from af given variable
+
+    Args:
+        df (pd.DataFrame): pandas dataframe  
+        varname: The variable to choose rows from
+        rowname: the rows to either keep or drop
+        keep=True: statement of whether to keep or drop the given rows
+
+    Returns:
+        df (pd.DataFrame): pandas dataframe
+
+    """
+    
+    for val in rownames: 
+        I = df.varname.str.contains(val)
+        df = df.loc[I == keep] 
+    
+    return df
 
 
 
