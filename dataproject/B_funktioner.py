@@ -78,7 +78,7 @@ def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
     """
     df = quarter_to_year(df)
     # Delition list
-    val_list = ['Region', 'Province', 'All Denmark']
+    val_list = ['Region', 'Province', 'All Denmark','Christiansoe']
     
     # 
     for val in val_list:
@@ -116,6 +116,7 @@ def row_chooser(df,varname,rownames, keep=True):
         df = df.loc[I == keep] 
     
     return df
+
 
 
 
