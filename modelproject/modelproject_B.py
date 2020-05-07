@@ -86,7 +86,6 @@ def plot_deadweight_loss(N,qi,a,b,k):
 
     widgets.interact(solution_cournot,
         N = widgets.FloatSlider(description="$Number of firms$",min=2,max=10),
-        qi = widgets.FloatSlider(description="$quantity$",min=1,max=5),
         a = widgets.FloatSlider(description="$demand parameter$",min=20,max=21),
         b = widgets.FloatSlider(description="$elasticity$",min=1,max=2),
         k = widgets.FloatSlider(description="$cost parameter$",min=1,max=2),
