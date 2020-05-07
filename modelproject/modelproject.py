@@ -16,19 +16,6 @@ sm.init_printing(use_unicode=True)
 from sympy import *
 
 # The linear demand function:
-    """ solve for the steady state level of capital
-
-        Args:
-            s (float): saving rate
-            g (float): technological growth rate
-            n (float): population growth rate
-            alpha (float): cobb-douglas parameter
-            delta (float): capital depreciation rate 
-
-        Returns:
-            result (RootResults): the solution represented as a RootResults object
-
-    """ 
 def p_total(qo,qi,a,b):
     """ solve for the steady state level of capital
 
@@ -78,6 +65,7 @@ def cost_f(qi,k):
             result (RootResults): the solution represented as a RootResults object
 
     """ 
+
     return k*qi
 
 def solution_cournot(N,a,b,k):
