@@ -1,6 +1,6 @@
 # Model analysis project
 
-Our project is titled **Modelproject of the Cournot model** and is about the Cournot model with symmetric and unsymmetric costfunctions known from Micro 1,2 and 3. Furthermore the project will examine the equilibrium for different number of firms competing in the market. As can be seen in the modelproject.ipynb together with the modelproject.py we start by setting up a case with 2 firms and assymetric cost functions. Then heading for a more general case. 
+Our project is titled **Modelproject of the Cournot model** and is about the Cournot model with symmetric and unsymmetric costfunctions known from Micro 1,2 and 3. Furthermore the project will examine the equilibrium for different number of firms competing in the market. As can be seen in the modelproject.ipynb together with the modelproject.py we start by setting up a case with 2 firms and assymetric cost functions. Then heading for a simplified case where we assume symmetric costs where we extend the analysis by looking at how the equilibrium changes when the number of firms increases. 
 
 The **results** of the project can be seen from running [modelproject.ipynb](modelproject.ipynb).
 
