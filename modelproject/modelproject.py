@@ -17,66 +17,62 @@ from sympy import *
 
 # The linear demand function:
 def p_total(qo,qi,a,b):
-    """ solve for the steady state level of capital
+    """ solve for the inverse linear demand function
 
         Args:
-            s (float): saving rate
-            g (float): technological growth rate
-            n (float): population growth rate
-            alpha (float): cobb-douglas parameter
-            delta (float): capital depreciation rate 
+            qo (symbol): produced qauntity by firm 0
+            qi (symbol): produced qauntity by firm i
+            a (symbol): demand parameter
+            b (symbol): demand elasticity
 
         Returns:
-            result (RootResults): the solution represented as a RootResults object
+            result (symbol): the solution represented as a symbol
 
     """ 
 
     return (a-b*(qo+qi))
 
-#The profitfunction of firm i:
-def profit_i(qo,qi,a,b,k):
-    """ solve for the steady state level of capital
-
-        Args:
-            s (float): saving rate
-            g (float): technological growth rate
-            n (float): population growth rate
-            alpha (float): cobb-douglas parameter
-            delta (float): capital depreciation rate 
-
-        Returns:
-            result (RootResults): the solution represented as a RootResults object
-
-    """ 
-
-    return (p_total(qo,qi,a,b) * qi - cost_f(qi,k))
-
 def cost_f(qi,k):
-    """ solve for the steady state level of capital
+    """ solve for the total cost of production of firm i
 
         Args:
-            s (float): saving rate
-            g (float): technological growth rate
-            n (float): population growth rate
-            alpha (float): cobb-douglas parameter
-            delta (float): capital depreciation rate 
+            qi (symbol): produced qauntity by firm i
+            k (symbol): marginal cost of production
 
         Returns:
-            result (RootResults): the solution represented as a RootResults object
+            result (symbol): the solution represented as a symbol
 
     """ 
 
     return k*qi
 
-def solution_cournot(N,a,b,k):
-    """ solve for the steady state level of capital
+#The profitfunction of firm i:
+def profit_i(qo,qi,a,b,k):
+    """ solve for the profit of firm i
 
         Args:
-            s (float): saving rate
-            g (float): technological growth rate
-            n (float): population growth rate
-            alpha (float): cobb-douglas parameter
-            delta (float): capital depreciation rate 
+            qo (symbol): produced qauntity by firm 0
+            qi (symbol): produced qauntity by firm i
+            a (symbol): demand parameter
+            b (symbol): demand elasticity
+            k (symbol): marginal cost of production
+
+        Returns:
+            result (symbol): the solution represented as a symbol
+
+    """ 
+
+    return (p_total(qo,qi,a,b) * qi - cost_f(qi,k))
+
+
+def solution_cournot(N,a,b,k):
+    """ solve for optimal solution of the cournot model
+
+        Args:
+            N (symbol): The number of firms in the model
+            a (symbol): demand parameter
+            b (symbol): demand elasticity
+            k (symbol): marginal cost of production
 
         Returns:
             result (RootResults): the solution represented as a RootResults object
@@ -107,14 +103,12 @@ def solution_cournot(N,a,b,k):
     return total_quantity, price, i_quantity, i_profit
 
 def demand(a,b,q):
-    """ solve for the steady state level of capital
+    """ solve for inverse demand of total production
 
         Args:
-            s (float): saving rate
-            g (float): technological growth rate
-            n (float): population growth rate
-            alpha (float): cobb-douglas parameter
-            delta (float): capital depreciation rate 
+            a (symbol): demand parameter
+            b (symbol): demand elasticity
+            q (symbol): produced qauntity in total
 
         Returns:
             result (RootResults): the solution represented as a RootResults object
@@ -123,14 +117,14 @@ def demand(a,b,q):
     return (a-b*q)
 
 def perfect_com(qi,N,a,b,k):
-    """ solve for the steady state level of capital
+    """ solve for the produced quantity under the assumption of perfect competition
 
         Args:
-            s (float): saving rate
-            g (float): technological growth rate
-            n (float): population growth rate
-            alpha (float): cobb-douglas parameter
-            delta (float): capital depreciation rate 
+            qo (symbol): produced qauntity by firm 0
+            qi (symbol): produced qauntity by firm i
+            a (symbol): demand parameter
+            b (symbol): demand elasticity
+            k (symbol): marginal cost of production 
 
         Returns:
             result (RootResults): the solution represented as a RootResults object
@@ -140,14 +134,13 @@ def perfect_com(qi,N,a,b,k):
     return pc_quantity
 
 def plot_deadweight_loss(N,a,b,k):
-    """ solve for the steady state level of capital
+    """ solves the cournot model and plots the solution showing the deadweight loss
 
         Args:
-            s (float): saving rate
-            g (float): technological growth rate
-            n (float): population growth rate
-            alpha (float): cobb-douglas parameter
-            delta (float): capital depreciation rate 
+            N (symbol): The number of firms in the modl
+            a (symbol): demand parameter
+            b (symbol): demand elasticity
+            k (symbol): marginal cost of production
 
         Returns:
             result (RootResults): the solution represented as a RootResults object
