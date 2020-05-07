@@ -16,17 +16,84 @@ sm.init_printing(use_unicode=True)
 from sympy import *
 
 # The linear demand function:
+    """ solve for the steady state level of capital
+
+        Args:
+            s (float): saving rate
+            g (float): technological growth rate
+            n (float): population growth rate
+            alpha (float): cobb-douglas parameter
+            delta (float): capital depreciation rate 
+
+        Returns:
+            result (RootResults): the solution represented as a RootResults object
+
+    """ 
 def p_total(qo,qi,a,b):
+    """ solve for the steady state level of capital
+
+        Args:
+            s (float): saving rate
+            g (float): technological growth rate
+            n (float): population growth rate
+            alpha (float): cobb-douglas parameter
+            delta (float): capital depreciation rate 
+
+        Returns:
+            result (RootResults): the solution represented as a RootResults object
+
+    """ 
+
     return (a-b*(qo+qi))
 
 #The profitfunction of firm i:
 def profit_i(qo,qi,a,b,k):
+    """ solve for the steady state level of capital
+
+        Args:
+            s (float): saving rate
+            g (float): technological growth rate
+            n (float): population growth rate
+            alpha (float): cobb-douglas parameter
+            delta (float): capital depreciation rate 
+
+        Returns:
+            result (RootResults): the solution represented as a RootResults object
+
+    """ 
+
     return (p_total(qo,qi,a,b) * qi - cost_f(qi,k))
 
 def cost_f(qi,k):
+    """ solve for the steady state level of capital
+
+        Args:
+            s (float): saving rate
+            g (float): technological growth rate
+            n (float): population growth rate
+            alpha (float): cobb-douglas parameter
+            delta (float): capital depreciation rate 
+
+        Returns:
+            result (RootResults): the solution represented as a RootResults object
+
+    """ 
     return k*qi
 
 def solution_cournot(N,a,b,k):
+    """ solve for the steady state level of capital
+
+        Args:
+            s (float): saving rate
+            g (float): technological growth rate
+            n (float): population growth rate
+            alpha (float): cobb-douglas parameter
+            delta (float): capital depreciation rate 
+
+        Returns:
+            result (RootResults): the solution represented as a RootResults object
+
+    """ 
     
     # Note: This solution works for N firms with same cost function. 
 
@@ -52,13 +119,52 @@ def solution_cournot(N,a,b,k):
     return total_quantity, price, i_quantity, i_profit
 
 def demand(a,b,q):
+    """ solve for the steady state level of capital
+
+        Args:
+            s (float): saving rate
+            g (float): technological growth rate
+            n (float): population growth rate
+            alpha (float): cobb-douglas parameter
+            delta (float): capital depreciation rate 
+
+        Returns:
+            result (RootResults): the solution represented as a RootResults object
+
+    """ 
     return (a-b*q)
 
 def perfect_com(qi,N,a,b,k):
+    """ solve for the steady state level of capital
+
+        Args:
+            s (float): saving rate
+            g (float): technological growth rate
+            n (float): population growth rate
+            alpha (float): cobb-douglas parameter
+            delta (float): capital depreciation rate 
+
+        Returns:
+            result (RootResults): the solution represented as a RootResults object
+
+    """ 
     pc_quantity = sm.solve(sm.Eq(diff(cost_f(qi,k),qi), p_total(0,qi,a,b)),qi)
     return pc_quantity
 
 def plot_deadweight_loss(N,a,b,k):
+    """ solve for the steady state level of capital
+
+        Args:
+            s (float): saving rate
+            g (float): technological growth rate
+            n (float): population growth rate
+            alpha (float): cobb-douglas parameter
+            delta (float): capital depreciation rate 
+
+        Returns:
+            result (RootResults): the solution represented as a RootResults object
+
+    """ 
     
     qi = sm.symbols('q_i') #quantity of the N firm 
     plt.rcdefaults()
