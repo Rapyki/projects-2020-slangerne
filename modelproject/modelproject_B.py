@@ -26,12 +26,13 @@ def profit_i(qo,qi,a,b,k):
 def cost_f(qi,k):
     return k*qi
 
-def solution_cournot(N,qi,a,b,k):
+def solution_cournot(N,a,b,k):
     
     # Note: This solution works for N firms with same cost function. 
 
     qo = sm.symbols('q_o')
     q = sm.symbols('q')
+    qi = sm.symbols('q_i') #quantity of the N firm 
 
     foc_i = diff(profit_i(qo,qi,a,b,k),qi)
 
@@ -48,7 +49,7 @@ def solution_cournot(N,qi,a,b,k):
 
     i_profit = simplify(profit_i(total_quantity-i_quantity,i_quantity,a,b,k))
     
-    return foc_i, total_quantity, price, i_quantity, i_profit
+    return total_quantity, price, i_quantity, i_profit
 
 def demand(a,b,q):
     return (a-b*q)
@@ -57,20 +58,20 @@ def perfect_com(qi,N,a,b,k):
     pc_quantity = sm.solve(sm.Eq(diff(cost_f(qi,k),qi), p_total(0,qi,a,b)),qi)
     return pc_quantity
 
-def plot_deadweight_loss(N,qi,a,b,k):
+def plot_deadweight_loss(N,a,b,k):
     
-    
+    qi = sm.symbols('q_i') #quantity of the N firm 
     plt.rcdefaults()
 
     pc_quantity = perfect_com(qi,N,a,b,k)
     #pc_price = p_total(pc_quantity[0]/2,pc_quantity[0]/2,a,b)
-    produced_quantity = solution_cournot(N,qi,a,b,k)[1]
+    produced_quantity = solution_cournot(N,a,b,k)[0]
 
     data = np.arange(0,pc_quantity[0]+5,1)  # use numpy to create a range of data
 
     marginalcost = np.zeros(len(data))
     for i in data:
-        marginalcost[i] = diff(cost_f(qi,k),qi).subs({qi:data[i],k:k})
+        marginalcost[i] = diff(cost_f(qi,k),qi).subs({qi:data[i],k:k})  
 
     plt.xlabel("Quantity") # label the axes
     plt.ylabel("Price") # label the axes
@@ -84,12 +85,7 @@ def plot_deadweight_loss(N,qi,a,b,k):
     plt.plot(data,marginalcost)
     plt.vlines(x=produced_quantity,ymin=0,ymax=a)
 
-    widgets.interact(solution_cournot,
-        N = widgets.FloatSlider(description="$Number of firms$",min=2,max=10),
-        a = widgets.FloatSlider(description="$demand parameter$",min=20,max=21),
-        b = widgets.FloatSlider(description="$elasticity$",min=1,max=2),
-        k = widgets.FloatSlider(description="$cost parameter$",min=1,max=2),
-    )  
+    
     
     
     return plt.show()
