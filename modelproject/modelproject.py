@@ -1,19 +1,13 @@
-# Importing useful packages 
+# Importing packages
+from __future__ import print_function
 import numpy as np
 import scipy as sp
 import sympy as sm
 import matplotlib.pyplot as plt
 import ipywidgets as widgets
-import pylab
-from scipy.misc import derivative
-
-from numpy import array
-from scipy import linalg
-from scipy import optimize
-
-sm.init_printing(use_unicode=True)
-
-from sympy import *
+from ipywidgets import interact, interactive, fixed, interact_manual
+from IPython.display import display
+from sympy import simplify
 
 # The linear demand function:
 def p_total(qo,qi,a,b):
@@ -85,7 +79,7 @@ def solution_cournot(N,a,b,k):
     q = sm.symbols('q')
     qi = sm.symbols('q_i') #quantity of the N firm 
 
-    foc_i = diff(profit_i(qo,qi,a,b,k),qi)
+    foc_i = sm.diff(profit_i(qo,qi,a,b,k),qi)
 
     # All firms have the same FOC so we will sum this up to get the total quantity and price
 
@@ -93,7 +87,7 @@ def solution_cournot(N,a,b,k):
     foc_total = foc_total*N # Multiplying the FOC for number of firms 
     foc_total = foc_total.replace(qi,q/N) # Replace qi * N with q
 
-    total_quantity = simplify(sm.solve(sm.Eq(foc_total,0),q)[0])
+    total_quantity = sm.simplify(sm.solve(sm.Eq(foc_total,0),q)[0])
     price = p_total(total_quantity-qi,qi,a,b)
 
     i_quantity = total_quantity/N
@@ -130,7 +124,7 @@ def perfect_com(qi,N,a,b,k):
             result (RootResults): the solution represented as a RootResults object
 
     """ 
-    pc_quantity = sm.solve(sm.Eq(diff(cost_f(qi,k),qi), p_total(0,qi,a,b)),qi)
+    pc_quantity = sm.solve(sm.Eq(sm.diff(cost_f(qi,k),qi), p_total(0,qi,a,b)),qi)
     return pc_quantity
 
 def plot_deadweight_loss(N,a,b,k):
@@ -158,7 +152,7 @@ def plot_deadweight_loss(N,a,b,k):
 
     marginalcost = np.zeros(len(data))
     for i in data:
-        marginalcost[i] = diff(cost_f(qi,k),qi).subs({qi:data[i],k:k})  
+        marginalcost[i] = sm.diff(cost_f(qi,k),qi).subs({qi:data[i],k:k})  
 
     plt.xlabel("Quantity") # label the axes
     plt.ylabel("Price") # label the axes
