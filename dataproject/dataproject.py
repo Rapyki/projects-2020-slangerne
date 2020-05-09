@@ -2,7 +2,6 @@
 def quarter_to_year(df):
     """ keeps only the first quarter observation if the dataset is quarterly, also removes the Q notation, so only the year
     appears
-    
 
     Args:
         df (pd.DataFrame): pandas dataframe with the column "year" as a string
@@ -70,7 +69,6 @@ def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
         forskel (int) as year variable input (Ras is measured in November while fx. population in january)
         startaar (int) as the wanted starting year of the dataset
         slutaar (int) as the wanted end year of the dataset
-        
 
     Returns:
         df (pd.DataFrame): pandas dataframe
