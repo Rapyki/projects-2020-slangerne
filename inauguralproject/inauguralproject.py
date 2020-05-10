@@ -101,8 +101,6 @@ class ConsumerProblem:
         return totaltax
     
 
-
-
 """
 # Drawing 10.000 random wage rates from a uniform distribution in the interval (0.5, 1.5)
 pop_wage_draw = np.random.uniform(0.5,1.5,size=10000)
