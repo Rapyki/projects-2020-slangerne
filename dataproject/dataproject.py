@@ -1,6 +1,27 @@
 
+def initial_rename(df,varname):
+    """ Renames 'OMRÅDE' to 'municipality' and 'TID' to 'year'. Also renames the data variable 'INDHOLD' to a chosen name
+
+    Args:
+        df (pd.DataFrame): pandas dataframe with the columns "year" and "municipality" as strings
+        varname (String): the wanted name for the given variable for 'INDHOLD'
+
+    Returns:
+        df (pd.DataFrame): pandas dataframe
+
+    """ 
+    
+    
+    df.rename(columns = {'OMRÅDE':'municipality'}, inplace=True)
+    df.rename(columns = {'TID':'year'}, inplace=True)
+    df.rename(columns = {'INDHOLD':varname}, inplace=True)
+    
+
+    return df
+
+
 def quarter_to_year(df):
-    """ keeps only the first quarter observation if the dataset is quarterly, also removes the Q notation, so only the year
+    """ Keeps only the first quarter observation if the dataset is quarterly, and also removes the Q notation, so only the year
     appears
 
     Args:
@@ -23,29 +44,9 @@ def quarter_to_year(df):
         
     return df
 
-def initial_rename(df,varname):
-    """ renames 'OMRÅDE' to 'municipality' and 'TID' to 'year'. Also renames the data variable 'INDHOLD' to a chosen name
-
-    Args:
-        df (pd.DataFrame): pandas dataframe with the columns "year" and "municipality" as strings
-        varname: the wanted name for the given variable for 'INDHOLD'
-
-    Returns:
-        df (pd.DataFrame): pandas dataframe
-
-    """ 
-    
-    
-    df.rename(columns = {'OMRÅDE':'municipality'}, inplace=True)
-    df.rename(columns = {'TID':'year'}, inplace=True)
-    df.rename(columns = {'INDHOLD':varname}, inplace=True)
-    
-
-    return df
-
 
 def sort_reset(df):
-    """ sorts after first municipality and then year. Also resets index
+    """ Sorts after municipality and year. Also resets index
 
     Args:
         df (pd.DataFrame): pandas dataframe with the columns "year" and "municipality" as strings
@@ -61,21 +62,22 @@ def sort_reset(df):
 
 
 
-def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
-    """ delete all non-municipalities, and alså Christiansø and Bornholm
+def only_keep_municipalities_and_years(df,diff,startyear,endyear):
+    """ Deletes all non-municipalities, and also Christiansø and Bornholm. This is done as these two municipalities are not
+    included in all the collected datasets. It also restricts the period of the data series.
 
     Args:
         df (pd.DataFrame): pandas dataframe with the column "municipality" as a string, 
-        forskel (int) as year variable input (Ras is measured in November while fx. population in january)
-        startaar (int) as the wanted starting year of the dataset
-        slutaar (int) as the wanted end year of the dataset
+        diff (Int): as year variable input (Ras is measured in November while fx. population in january)
+        startyear (Int): as the wanted starting year of the dataset
+        endyear (Int): as the wanted end year of the dataset
 
     Returns:
         df (pd.DataFrame): pandas dataframe
 
     """
-    df = quarter_to_year(df) #applies the above function
-    # Delition list
+    df = quarter_to_year(df) #applies the above function to only look at yearly observations
+    
     val_list = ['Region', 'Province', 'All Denmark','Christiansø','Bornholm']  #defines rows to remove
     
     # 
@@ -83,20 +85,18 @@ def only_keep_municipalities_and_years(df,forskel,startaar,slutaar):
         I = df.municipality.str.contains(val)
         df = df.loc[I == False] # keep everything else than the above rows
 
-
-    #the following keeps the sample period
+    #The following defines the sample period 
     df['year'] = df['year'].astype(int)
-    df['year'] = df['year'] + forskel
-    df = df.loc[df['year'] <= slutaar ]
-    df = df.loc[df['year'] >= startaar ]
+    df['year'] = df['year'] + diff
+    df = df.loc[df['year'] <= endyear ]
+    df = df.loc[df['year'] >= startyear ]
     df['year'] = df['year'].astype(str)
-
 
     return df
 
 
 def row_chooser(df,varname,rownames, keep=True): #We have not gotten this function to work yet
-    """ chooses which rows to keep from af given variable
+    """ Chooses which rows to keep from af given variable
 
     Args:
         df (pd.DataFrame): pandas dataframe  
