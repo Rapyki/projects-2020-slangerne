@@ -1,5 +1,6 @@
 import numpy as np
-import scipy.optimize as opt
+import scipy as sp
+from scipy import optimize
 
 class ConsumerProblem:
     """ The following class solves the consumerproblem. Firstly the parameters of the model are assigned with intial
@@ -49,7 +50,7 @@ class ConsumerProblem:
 
         """
 
-        res = opt.minimize_scalar(self.choice, method='bounded', bounds=(0,1))
+        res = sp.optimize.minimize_scalar(self.choice, method='bounded', bounds=(0,1))
     
         l_star = res.x
         c_star = self.eq(l_star)
@@ -87,6 +88,33 @@ class ConsumerProblem:
 
 
 """
+# Drawing 10.000 random wage rates from a uniform distribution in the interval (0.5, 1.5)
+pop_wage_draw = np.random.uniform(0.5,1.5,size=10000)
+
+# Defining the total_tax function and an empty array of 0s with N=10000
+def total_tax(pop_wage_draw, eps, v, tau_0, tau_1, kappa, m):
+    N=len(pop_wage_draw)
+    pop_indi_tax=np.zeros(N)
+    
+# For each wage rate, return the optimal labour supply calculated through optimizer function
+    for i,w in enumerate(pop_wage_draw):
+        l_opt_q3=optimizer(w, eps, v, tau_0, tau_1, kappa, m)
+        opt_lab_q3=l_opt_q3[0]
+        
+# Returning tax payment given the optimal labour supply
+        pop_indi_tax[i]=tau_0*w*opt_lab_q3+tau_1*max(w*opt_lab_q3-kappa,0)
+    
+# Taking the sum of all tax payments
+    tot1=sum(pop_indi_tax)
+    return tot1
+
+# Calling total tax revenue using the array of randomly drawn wages
+revenue = total_tax(pop_wage_draw,eps,v,tau_0,tau_1,kappa,m)
+# Printing the result
+print(f'The total tax revenue is {revenue:.1f}')
+
+
+
 def tax_revenue(seed,size,low,high,eps=0.3):
     # a. set seed, draw random numbers
     np.random.seed(seed)
