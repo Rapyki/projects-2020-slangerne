@@ -85,6 +85,22 @@ class ConsumerProblem:
     def para(self): # To print the parameters
         para =  f'm: {self.m}, v: {self.v}, eps: {self.eps}, tau0: {self.tau_0}, tau1: {self.tau_1}, kappa: {self.kappa} and w: {self.w}'
         return para
+    
+    def totaltaxrev(self):
+        np.random.seed(117)
+        wage_draw = np.random.uniform(0.5, 1.5, size=10000)
+        l_opt = np.empty(10000)
+        tax_ind = np.empty(10000)
+
+        for i,w in enumerate(wage_draw):
+            l_opt = self.optimizer()[0]
+            tax_ind[i] = self.tau_0*w*l_opt+self.tau_1*np.fmax(w*l_opt-self.kappa,0)
+        
+        totaltax = np.sum(tax_ind)
+
+        return totaltax
+    
+
 
 
 """
