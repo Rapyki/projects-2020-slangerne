@@ -16,7 +16,7 @@ class ConsumerProblem:
         self.tau_0 = 0.4 #standard labor income tax
         self.tau_1 = 0.1 #top bracket labor income tax
         self.kappa = 0.4 #cut-off for top labor income tax
-        self.w = 0.5 #wage rate
+        self.w = 1 #wage rate
 
     # Defining the utility equation (the first order condition of the utilitty maximization?)
     def utility(self,c,l):
@@ -84,3 +84,28 @@ class ConsumerProblem:
     def para(self): # To print the parameters
         para =  f'm: {self.m}, v: {self.v}, eps: {self.eps}, tau0: {self.tau_0}, tau1: {self.tau_1}, kappa: {self.kappa} and w: {self.w}'
         return para
+
+
+"""
+def tax_revenue(seed,size,low,high,eps=0.3):
+    # a. set seed, draw random numbers
+    np.random.seed(seed)
+    wi = np.random.uniform(low=low,high=high,size=size)
+    
+    # b. define local parameter values
+    kappa = 0.4
+    nu = 10
+    m = 1
+    tau0 = 0.4
+    tau1 = 0.1
+
+    # c. solve each individual's optimisation problem
+    tax_rev = 0
+    
+    for i, wi in enumerate (wi):        
+        lc = u_optimiser(eps,kappa,nu,m,tau0,tau1,wi)
+        tax_i = tau0*wi*lc[0] + tau1*max(wi*lc[0]-kappa,0)
+        tax_rev += tax_i
+
+    return tax_rev
+"""
